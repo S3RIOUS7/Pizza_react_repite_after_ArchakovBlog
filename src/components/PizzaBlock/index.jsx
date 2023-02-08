@@ -17,7 +17,7 @@ function PizzaBlock({id, title,price, imageUrl, sizes, types}){
   
 
   const onClickAdd = () => {
-    const item = {id, title, price, imageUrl, type: typeNames[activeType], size: activeSize, };
+    const item = {id, title, price, imageUrl, type: typeNames[activeType], size: sizes [activeSize], };
     dispatch(addItem(item));
   }
 
