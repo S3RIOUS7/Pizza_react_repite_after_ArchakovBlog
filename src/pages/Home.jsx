@@ -33,7 +33,7 @@ import { sortList } from "../components/Sort";
     dispatch(setCurrentPage(number));
   };
 
-const fetchPizzas = () => {
+const fetchPizzas = async () => {
   setIsLoading(true);
 
   const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
@@ -42,13 +42,13 @@ const fetchPizzas = () => {
   const search = searchValue ? `&search=${searchValue}` : '' ;
 
  
-  axios.get(`https://63bfda05e262345656f1a0a8.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
-  .then(res => {
+  const res = await axios.get(`https://63bfda05e262345656f1a0a8.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`);
   setItems(res.data);
-  setIsLoading(false);
-  });
-  
+  setIsLoading(false); 
+  window.scrollTo(0, 0);
 }
+
+
 React.useEffect(() => {
   if(isMounted.current) {
     const queryString = qs.stringify({
