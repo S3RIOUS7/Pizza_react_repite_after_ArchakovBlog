@@ -12,7 +12,7 @@ import { SearchContext } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { sortList } from "../components/Sort";
-import { setItems } from '../redux/slices/pizzaSlice';
+import { fetchPizzas } from '../redux/slices/pizzaSlice';
 
 
  const Home = ( ) => {
@@ -36,7 +36,7 @@ import { setItems } from '../redux/slices/pizzaSlice';
     dispatch(setCurrentPage(number));
   };
 
-const fetchPizzas = async () => {
+const getPizzas = async () => {
   setIsLoading(true);
 
   const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
@@ -44,8 +44,13 @@ const fetchPizzas = async () => {
   const category = categoryId > 0 ? `category=${categoryId}` : '' ;
   const search = searchValue ? `&search=${searchValue}` : '' ;
 
- try {const { data } = await axios.get(`https://63bfda05e262345656f1a0a8.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`);
-  dispatch(setItems(data));
+ try {
+  dispatch(fetchPizzas({
+    order,
+    sortBy,
+    category,
+    search,
+  }));
   setIsLoading(false);
 }catch (error) {
   alert ('Error');
@@ -88,7 +93,7 @@ React.useEffect(() => {
   window.scrollTo(0, 0)
 
   if(!isSearch.current){
-    fetchPizzas();
+    getPizzas();
   }
 
   isSearch.current = false;
