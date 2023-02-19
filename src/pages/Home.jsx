@@ -50,6 +50,7 @@ const getPizzas = async () => {
     sortBy,
     category,
     search,
+    currentPage,
   }));
   setIsLoading(false);
 }catch (error) {
