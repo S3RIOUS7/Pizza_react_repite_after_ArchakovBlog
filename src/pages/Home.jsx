@@ -45,6 +45,7 @@ const getPizzas = async () => {
   const search = searchValue ? `&search=${searchValue}` : '' ;
 
  try {
+ 
   dispatch(fetchPizzas({
     order,
     sortBy,
