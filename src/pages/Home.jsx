@@ -21,7 +21,7 @@ import { fetchPizzas } from '../redux/slices/pizzaSlice';
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
- const items = useSelector((state) => state.pizza.items);
+ const { items, status} = useSelector((state) => state.pizza);
   const { categoryId, sort, currentPage} = useSelector((state) => state.filter);
  
   
@@ -44,21 +44,14 @@ const getPizzas = async () => {
   const category = categoryId > 0 ? `category=${categoryId}` : '' ;
   const search = searchValue ? `&search=${searchValue}` : '' ;
 
- try {
- 
-  dispatch(fetchPizzas({
+  dispatch(
+    fetchPizzas({
     order,
     sortBy,
     category,
     search,
     currentPage,
   }));
-  setIsLoading(false);
-}catch (error) {
-  alert ('Error');
-} finally {
-  setIsLoading(false);
-}
     
   window.scrollTo(0, 0);
 }
@@ -112,8 +105,15 @@ React.useEffect(() => {
     <Sort />
   </div>
   <h2 className="content__title">Все пиццы</h2>
-  <div className="content__items">
-    {isLoading ? skeletons : pizzas }</div>
+  {
+    status === 'error' ? (
+    <div className='content__error-info'>
+      <h2> Произошла ошибка 😕</h2>
+      <p>К сожалению, не удалось отобразить пиццы. попробуйте повторить попытку позже.</p>
+    </div>
+    ) : (<div className="content__items"> {status === 'loading' ? skeletons : pizzas }</div>)
+  }
+  
     <Pagination currentPage={currentPage} onPageChange={onChangePage} /> 
   </div>
   );

@@ -36,7 +36,7 @@ extraReducers: {
     },
     [fetchPizzas.fulfilled]: (state, action) => {
         state.items = action.payload;
-        state.status = 'sucsecc';
+        state.status = 'success';
     },
     [fetchPizzas.rejected]: (state, action) => {
         state.items = [];
