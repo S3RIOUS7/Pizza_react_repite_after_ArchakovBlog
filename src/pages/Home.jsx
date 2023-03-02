@@ -8,7 +8,6 @@ import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from '../components/Pagination';
 import { selectFilter, setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
-import { SearchContext } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { sortList } from "../components/Sort";
@@ -22,11 +21,9 @@ import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
   const isMounted = React.useRef(false);
 
  const { items, status} = useSelector(selectPizzaData);
-  const { categoryId, sort, currentPage} = useSelector(selectFilter);
+  const { categoryId, sort, currentPage, searchValue} = useSelector(selectFilter);
  
   
-
-  const {searchValue} = React.useContext(SearchContext);
   
   const [isLoading, setIsLoading] = React.useState(true);
   
@@ -67,6 +64,7 @@ React.useEffect(() => {
     navigate(`?${queryString}`);
   }
   isMounted.current = true;
+  console.log(searchValue)
 }, [categoryId, sort.sortProperty, searchValue, currentPage])
 
   
