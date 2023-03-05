@@ -1,7 +1,6 @@
 import React from 'react';
 
 import qs from 'qs'
-
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
@@ -9,7 +8,7 @@ import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from '../components/Pagination';
 import { selectFilter, setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { sortList } from "../components/Sort";
 import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
 
@@ -94,7 +93,11 @@ React.useEffect(() => {
 }, [categoryId, sort.sortProperty, currentPage]);
 
  
-  const pizzas = items.map((obj) => (<PizzaBlock key={obj.id} {...obj} />))
+  const pizzas = items.map((obj) => (
+  <Link key={obj.id} to ={`/pizza/${obj.id}`}>
+    <PizzaBlock {...obj} />
+    </Link>
+    ));
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />)
   return (
     <div className='container'>
