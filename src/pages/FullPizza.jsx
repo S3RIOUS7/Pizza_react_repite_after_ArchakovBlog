@@ -1,9 +1,10 @@
 import React from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
  const FullPizza = () => {
      const { id } = useParams();
+     const navigate = useNavigate();
 
      const [pizza, setPizza] = React.useState();
 
@@ -11,7 +12,10 @@ import axios from 'axios';
       try{
         const {data} = await axios.get('https://63bfda05e262345656f1a0a8.mockapi.io/items/' + id);
         setPizza(data);
-      } catch (error) {alert('Ошибка при получении запроса')}
+      } catch (error) { 
+         alert('Ошибка при получении запроса')
+         navigate('/');
+        }
       }
       fetchPizza();
      }, []);
