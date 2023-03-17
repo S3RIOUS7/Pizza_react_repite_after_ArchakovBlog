@@ -7,6 +7,10 @@ type SortItem = {
   sortProperty: string;
 };
 
+
+
+
+
 export const sortList: SortItem[]= [
   { name: 'популярности (DESC)', sortProperty: 'rating'}, 
   { name: 'популярности (ASC)', sortProperty: '-rating'}, 
@@ -31,9 +35,11 @@ function Sort () {
 
   React.useEffect(() => {
 
-    const handleClickOutside = (event: any) => {
-      let path = event.composedPath().includes(sortRef.current);
-      if (!path) setOpen(false);
+    const handleClickOutside = (event: MouseEvent) => {
+      const _event = event as MouseEvent & {
+        path: Node[];
+      }
+      if (sortRef.current && !_event.path.includes(sortRef.current)){setOpen(false);}
     };
   
     document.body.addEventListener('click', handleClickOutside);
