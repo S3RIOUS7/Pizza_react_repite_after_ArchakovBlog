@@ -7,15 +7,16 @@ import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from '../components/Pagination';
 import { selectFilter, setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { sortList } from "../components/Sort";
 import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
+import { useAppDispatch } from '../redux/store';
 
 
  const Home: React.FC = ( ) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
@@ -41,7 +42,6 @@ const getPizzas = async () => {
   const search = searchValue ? `&search=${searchValue}` : '' ;
 
   dispatch(
-    //@ts-ignore
     fetchPizzas({
     order,
     sortBy,
