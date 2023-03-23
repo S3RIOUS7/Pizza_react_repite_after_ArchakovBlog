@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from '../store';
+import { Sort } from './filterSlice';
 
 
 
@@ -31,8 +32,15 @@ const initialState:PizzaSliceState = {
     status: Status.LOADING,
 };
 
+export type SearchPizzaParams = {
+    order: string,
+    sortBy: string,
+    category: string,
+    search: string,
+    currentPage: string,
+};
 
-export const fetchPizzas = createAsyncThunk<Pizza[], Record<string, string>> (
+export const fetchPizzas = createAsyncThunk<Pizza[], SearchPizzaParams> (
     'pizza/fetchPizzasStatus',
     async (params) => {
         const {
