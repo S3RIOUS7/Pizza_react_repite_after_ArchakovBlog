@@ -54,24 +54,24 @@ const getPizzas = async () => {
 }
 
 
-React.useEffect(() => {
-  if(isMounted.current) {
-    const params = {
-      categoryId: categoryId > 0 ? categoryId : null,
-      sortProperty: sort.sortProperty,
-      currentPage,
-    };
+// React.useEffect(() => {
+//   if(isMounted.current) {
+//     const params = {
+//       categoryId: categoryId > 0 ? categoryId : null,
+//       sortProperty: sort.sortProperty,
+//       currentPage,
+//     };
 
-    const queryString = qs.stringify(params, {skipNulls: true});
+//     const queryString = qs.stringify(params, {skipNulls: true});
 
-    navigate(`/?${queryString}`);
-  }
+//     navigate(`/?${queryString}`);
+//   }
 
-  if (!window.location.search) {
+//   if (!window.location.search) {
     
-  dispatch(fetchPizzas({} as SearchPizzaParams));
-  }
-}, [categoryId, sort.sortProperty, searchValue, currentPage]);
+//   dispatch(fetchPizzas({} as SearchPizzaParams));
+//   }
+// }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
 React.useEffect(() => {
   window.scrollTo(0, 0)
@@ -80,29 +80,31 @@ React.useEffect(() => {
     getPizzas();
   }
 
-  isSearch.current = false;
+  // isSearch.current = false;
 
 }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-React.useEffect(() => {
-  if (window.location.search){
-    const params = (qs.parse(window.location.search.substring(1))as unknown) as SearchPizzaParams;
+// React.useEffect(() => {
+//   if (window.location.search){
+//     const params = (qs.parse(window.location.search.substring(1)) as unknown) as SearchPizzaParams;
 
-    const sort = sortList.find(obj => obj.sortProperty === params.sortBy);
-
-    if (sort){params.sort = sort;}
-
-   dispatch(setFilters(params)); 
-  }
-  isSearch.current = true;
-}, [])
+//     const sort = sortList.find(obj => obj.sortProperty === params.sortBy);
+//    dispatch(setFilters({
+//     searchValue: params.search,
+//     categoryId: Number(params.category),
+//     currentPage: Number(params.currentPage),
+//     sort: sort ? sort : sortList[0],
+//    })); 
+//   }
+//   isSearch.current = true;
+// }, [])
 
 
  
   const pizzas = items.map((obj: any) => (
-  <Link key={obj.id} to ={`/pizza/${obj.id}`}>
+  
     <PizzaBlock {...obj} />
-    </Link>
+   
     ));
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />)
   return (
