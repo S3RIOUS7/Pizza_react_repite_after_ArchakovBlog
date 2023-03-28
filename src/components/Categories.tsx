@@ -1,13 +1,15 @@
 import React from 'react';
+import  useWhyDidYouUpdate  from 'ahooks/lib/useWhyDidYouUpdate';
 
 type CategoriesProps = {
   value: number;
   onChangeCategory: (idx: number) => void;
 }; 
 
+const categories = ['Все','Мясные','Вегетарианская','Гриль','Острые','Закрытые'];
 const Categories: React.FC<CategoriesProps> = ({ value, onChangeCategory }) => { 
-  const categories = ['Все','Мясные','Вегетарианская','Гриль','Острые','Закрытые'];
-
+  
+  useWhyDidYouUpdate('Categories', { value, onChangeCategory });
  
     return(
       <div className="categories">

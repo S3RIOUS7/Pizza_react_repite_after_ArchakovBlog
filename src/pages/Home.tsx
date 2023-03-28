@@ -103,7 +103,7 @@ React.useEffect(() => {
  
   const pizzas = items.map((obj: any) => (
   
-    <PizzaBlock {...obj} />
+    <PizzaBlock key = {obj.id} {...obj} />
    
     ));
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />)
