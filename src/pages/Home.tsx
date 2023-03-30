@@ -27,7 +27,7 @@ import { useAppDispatch } from '../redux/store';
   
   const [isLoading, setIsLoading] = React.useState(true);
   
-  const onChangeCategory = (idx: number) => { dispatch(setCategoryId(idx)) }
+  const onChangeCategory = React.useCallback((idx: number) => { dispatch(setCategoryId(idx)) },[]);
 
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
@@ -111,7 +111,7 @@ React.useEffect(() => {
     <div className='container'>
     <div className="content__top">
     <Categories value = {categoryId} onChangeCategory={onChangeCategory} />
-    <Sort />
+    <Sort value = {sort} />
   </div>
   <h2 className="content__title">Все пиццы</h2>
   {
